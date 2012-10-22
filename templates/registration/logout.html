@@ -1,0 +1,32 @@
+{% extends "base.html"  %}
+{% block content %}
+<h1>Выход</h1>
+Спасибо, что были с нами. Ждем вас снова.<br/><br/>
+{% endblock %}
+
+
+{% block auth %}
+{% if user.is_authenticated %}
+  <ul class="nav pull-right">
+  <li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Привет, {{ user.username }}</a>
+        <ul class="dropdown-menu">
+          <li><a data-toggle="modal" href="/accounts/logout/">Выйти</a></li>
+         <!--  <li><a data-toggle="modal" href="/accounts/register/">Регистрация</a></li> -->
+        </ul>
+    </li>
+  </ul>
+{% else %}
+  <ul class="nav pull-right">
+  <li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Привет,  гость</a>
+        <ul class="dropdown-menu">
+          <li><a data-toggle="modal" href="/accounts/login/">Войти</a></li>
+          <li><a data-toggle="modal" href="/accounts/register/">Регистрация</a></li>
+        </ul>
+    </li>
+  </ul>
+{% endif %}
+
+
+{% endblock %}

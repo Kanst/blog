@@ -1,0 +1,34 @@
+{% extends "base.html"  %}
+{% block content %}
+<h1>Регистрация завершена</h1>
+{{ account }}Спасибо за уделённое время. На ваш e-mail отправлен 
+код подтверждения. Необходимо подтвердить регистрацию, 
+просто кликнув по указанной ссылке.<br/><br/>
+{% endblock %}
+
+
+{% block auth %}
+{% if user.is_authenticated %}
+  <ul class="nav pull-right">
+  <li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Привет, {{ user.username }}</a>
+        <ul class="dropdown-menu">
+          <li><a data-toggle="modal" href="/accounts/logout/">Выйти</a></li>
+         <!--  <li><a data-toggle="modal" href="/accounts/register/">Регистрация</a></li> -->
+        </ul>
+    </li>
+  </ul>
+{% else %}
+  <ul class="nav pull-right">
+  <li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Привет,  гость</a>
+        <ul class="dropdown-menu">
+          <li><a data-toggle="modal" href="/accounts/login/">Войти</a></li>
+          <li><a data-toggle="modal" href="/accounts/register/">Регистрация</a></li>
+        </ul>
+    </li>
+  </ul>
+{% endif %}
+
+
+{% endblock %}

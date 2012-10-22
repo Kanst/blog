@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block rigth %}
+<div class="span3">
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li class="nav-header">Категории <span class="badge">{{ len_serias|length }}</span></li>
+              {% for seria in sp_serias %}
+                <li><a href="/books/s{{ seria.id }}">{{ seria.name }} <span class="badge badge-info">{{ seria.book_set.all|length }}</span></a></li>
+              {% endfor %}
+
+              <li class="nav-header">Авторы <span class="badge">{{ sp_autors|length }}</span></li>
+              {% for autor in sp_autors %}
+                <li><a href="/books/a{{ autor.id }}">{{ autor }} <span class="badge badge-info">{{ autor.book_set.all|length }}</span></a></li>
+              {% endfor %}
+            </ul>
+  </div><!--/.well -->
+{% endblock %}
+
+{% block heald %}
+<li class="divider"></li>
+<li class="nav-header">Серии</li>
+{% for seria in sp_serias %}
+  <li><a href="/books/s{{ seria.id }}">{{ seria.name }}<!--  <span class="badge badge-info">{{ seria.book_set.all|length }}</span> --></a></li>
+{% endfor %}
+<li class="divider"></li>
+<li class="nav-header">Авторы</li>
+{% for autor in sp_autors %}
+  <li><a href="/books/a{{ autor.id }}">{{ autor }}<!--  <span class="badge badge-info">{{ autor.book_set.all|length }}</span> --></a></li>
+{% endfor %}
+
+{% endblock %}
+
+{% block content %}
+<div class="span9">
+            
+            <h1>Hello, world!</h1>
+            <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+            
+         
+        </div><!--/span-->
+{% endblock %}
+

@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+
+
+
+{% block rigth %}
+<div class="span3">
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li class="nav-header">Категории <span class="badge">{{ len_serias|length }}</span></li>
+              {% for seria in sp_serias %}
+                <li><a href="/books/s{{ seria.id }}">{{ seria.name }} <span class="badge badge-info">{{ seria.book_set.all|length }}</span></a></li>
+              {% endfor %}
+
+              <li class="nav-header">Авторы <span class="badge">{{ sp_autors|length }}</span></li>
+              {% for autor in sp_autors %}
+                <li><a href="/books/a{{ autor.id }}">{{ autor }} <span class="badge badge-info">{{ autor.book_set.all|length }}</span></a></li>
+              {% endfor %}
+            </ul>
+  </div><!--/.well -->
+{% endblock %}
+
+{% block heald %}
+<li class="divider"></li>
+<li class="nav-header">Серии</li>
+{% for seria in sp_serias %}
+  <li><a href="/books/s{{ seria.id }}">{{ seria.name }}<!--  <span class="badge badge-info">{{ seria.book_set.all|length }}</span> --></a></li>
+{% endfor %}
+<li class="divider"></li>
+<li class="nav-header">Авторы</li>
+{% for autor in sp_autors %}
+  <li><a href="/books/a{{ autor.id }}">{{ autor }}<!--  <span class="badge badge-info">{{ autor.book_set.all|length }}</span> --></a></li>
+{% endfor %}
+
+{% endblock %}
+
+{% block content %}
+<div class="span9">
+            
+      <p>Для связи с разработчиками можно обращаться:</p>
+      <li>ICQ: 352520888</li>
+      <li>G-Talk: jeka@bmstu.me</li>
+      <li>E-mail: jeka@kanst9.com</li>
+            
+         
+        </div><!--/span-->
+{% endblock %}
+
+{% block auth %}
+{% if user.is_authenticated %}
+  <ul class="nav pull-right">
+  <li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Привет, {{ user.username }}</a>
+        <ul class="dropdown-menu">
+          <li><a data-toggle="modal" href="/accounts/logout/">Выйти</a></li>
+         <!--  <li><a data-toggle="modal" href="/accounts/register/">Регистрация</a></li> -->
+        </ul>
+    </li>
+  </ul>
+{% else %}
+  <ul class="nav pull-right">
+  <li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Привет,  гость</a>
+        <ul class="dropdown-menu">
+          <li><a data-toggle="modal" href="/accounts/login/">Войти</a></li>
+          <li><a data-toggle="modal" href="/accounts/register/">Регистрация</a></li>
+        </ul>
+    </li>
+  </ul>
+{% endif %}
+
+
+{% endblock %}
