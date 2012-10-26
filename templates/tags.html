@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block rigth %}
+<div class="span3">
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              Меню
+            </ul>
+  </div><!--/.well -->
+{% endblock %}
+
+{% block heald %}
+<li class="divider"></li>
+<li class="nav-header">Теги</li>
+
+{% load tagging_tags %}
+{% tag_cloud_for_model article.Article as tags with steps=6 distribution=log %}
+{% for tag in tags %}
+<li><a href="/tag/{{tag.name|slugify}}">{{tag.name}} <span class="badge badge-info">{{ tag.count }}</span></a></li>
+{% endfor %}
+
+<li class="divider"></li>
+<li class="nav-header">Авторы</li>
+{% for autor in sp_autors %}
+  <li><a href="/books/a{{ autor.id }}">{{ autor }}  {{ autor.book_set.all|length }}</span> </a></li>
+{% endfor %}
+
+{% endblock %}
+
+{% block content %}
+<div class="span9">
+<h1>Blog Tags</h1>
+<div class="tag-cloud">
+{% load tagging_tags %}
+{% tag_cloud_for_model article.Article as tags with steps=6 distribution=log %}
+{% for tag in tags %}
+<span class="tag-{{tag.font_size|add:"2"}}">
+<br>
+<a href="/tag/{{tag.name|slugify}}/">{{tag.name}}</a>
+</span> 
+<br>
+{% endfor %}
+<br><br><br><br><br><br><br><br><br>
+</div><!-- tag-cloud end -->
+</div><!--/span-->
+{% endblock %}
+

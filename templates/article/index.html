@@ -13,8 +13,8 @@
 
 {% block heald %}
 <li class="divider"></li>
-<li class="nav-header">Теги</a></li>
-<li><a href="/tags">Все теги</a></li>
+<li class="nav-header">Теги</li>
+
 {% load tagging_tags %}
 {% tag_cloud_for_model article.Article as tags with steps=6 distribution=log %}
 {% for tag in tags %}
@@ -31,11 +31,9 @@
 
 {% block content %}
 <div class="span9">
-{% for art in all_art %}
-<h3><a href="/blog/{{ art.id }}-{{ art.slug|lower }}">{{ art.title }}</a></h2>
+<h2 align="center">{{ art.title }}</h2>
                 <p >
-
-                    {{ art.text|truncatewords_html:100 }}
+                    {{ art.text }}
 
                     <div class="news-footer" style="display: inline-block;
                                                     margin-top: 10px;
@@ -44,14 +42,16 @@
                                                     border-radius: 4px;
                                                     padding: 3px 15px;
                                                     font-size: .9em;">
-                    <span>Дата добавления - {{art.add_date}},</span>
+                    <span>Теги: {% for teg in tegi %}
+
+                    <a href="/tag/{{teg|slugify}}">{{teg}}</a>, </span>  
+                                {% endfor %}
+                    <span>Дата добавления - {{art.add_date}}</span>
                     <span class="news-comment-count">
                     </span>
-                    <a class="news-read-more " href="/blog/{{ art.id }}-{{ art.slug|lower }}">Читать полностью &rarr;</a>
                     </div>
                 <br /><br />
-                </p>           
-{% endfor %}       
+                </p>                
 </div><!--/span-->
 {% endblock %}
 

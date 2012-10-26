@@ -1,3 +1,4 @@
+# Create your views here.
 # -*- coding: utf-8 -*-
 from django.shortcuts import render_to_response
 from django.http import HttpResponse
@@ -10,34 +11,34 @@ from tagging.models import Tag, TaggedItem
 
 def home(request):
     hello = 'Hello world!!'
-    
-    all_art = Article.objects.all().order_by("-add_date")
+    a = request.path
+    a = str(a).split("/")[2]
+    idi = a.split("-")
+
+    art = Article.objects.get(id=idi[0])
+    tegi = str(art.tags).split(",")
     title = ""
     return list_detail.object_list(
             request,
             queryset = Article.objects.all(),
-            template_name = "index.html",
+            template_name = "article/index.html",
             template_object_name = "article",
-            extra_context = {'title': title, 'all_art': all_art}
+            extra_context = {'title': title, 'art': art,'tegi':tegi}
             )
 
-
-
-
-def contact(request):
-    	return render_to_response('contact.html', {'title':'Контакты - ',
-                                                       })
-
-
-def tags(request):
-    title = "Теги |"
-    return list_detail.object_list(
-            request,
-            queryset = Article.objects.all(),
-            template_name = "tags.html",
-            template_object_name = "article",
-            extra_context = {'title': title,}
-            )
 
 
  
+def with_tag(request, tag, object_id=None): 
+    title = tag + " |"
+    all_art = Article.objects.filter(tags__contains=tag)
+    
+    return list_detail.object_list(
+            request,
+            queryset = Article.objects.all(),
+            template_name = "article/art_in_tags.html",
+            template_object_name = "article",
+            extra_context = {'title': title, 'all_art':all_art}
+            )
+
+

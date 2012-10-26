@@ -9,15 +9,7 @@
 <div class="span3">
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
-              <li class="nav-header">Категории <span class="badge">{{ len_serias|length }}</span></li>
-              {% for seria in sp_serias %}
-                <li><a href="/books/s{{ seria.id }}">{{ seria.name }} <span class="badge badge-info">{{ seria.book_set.all|length }}</span></a></li>
-              {% endfor %}
-
-              <li class="nav-header">Авторы <span class="badge">{{ sp_autors|length }}</span></li>
-              {% for autor in sp_autors %}
-                <li><a href="/books/a{{ autor.id }}">{{ autor }} <span class="badge badge-info">{{ autor.book_set.all|length }}</span></a></li>
-              {% endfor %}
+              Меню
             </ul>
   </div><!--/.well -->
 {% endblock %}

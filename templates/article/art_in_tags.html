@@ -13,8 +13,8 @@
 
 {% block heald %}
 <li class="divider"></li>
-<li class="nav-header">Теги</a></li>
-<li><a href="/tags">Все теги</a></li>
+<li class="nav-header">Теги</li>
+
 {% load tagging_tags %}
 {% tag_cloud_for_model article.Article as tags with steps=6 distribution=log %}
 {% for tag in tags %}
@@ -51,7 +51,7 @@
                     </div>
                 <br /><br />
                 </p>           
-{% endfor %}       
+{% endfor %}  
 </div><!--/span-->
 {% endblock %}
 

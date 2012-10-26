@@ -14,10 +14,10 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '',                      # Or path to database file if using sqlite3.
-        'USER': '',                      # Not used with sqlite3.
-        'PASSWORD': '',                  # Not used with sqlite3.
-        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
+        'NAME': 'blog',                      # Or path to database file if using sqlite3.
+        'USER': 'kanst9',                      # Not used with sqlite3.
+        'PASSWORD': '19931706',                  # Not used with sqlite3.
+        'HOST': 'localhost',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
@@ -45,14 +45,19 @@ USE_L10N = True
 # If you set this to False, Django will not use timezone-aware datetimes.
 USE_TZ = True
 
+
+MARKITUP_FILTER = ('markdown.markdown', {'safe_mode': True, 'extensions': ['cards']})
+#BLOCKQUOTE_SPLITTER = 'blockquote_splitter_paragraph_text'
+#MARKITUP_AUTO_PREVIEW = True
+MARKITUP_SET = '/media/markitup_hb/set'
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = os.path.join(os.path.realpath(os.path.dirname(__file__)), '../media_file')
+MEDIA_ROOT = os.path.join(os.path.realpath(os.path.dirname(__file__)), '../media')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
-MEDIA_URL = '/media_file/'
+MEDIA_URL = '/media/'
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
@@ -118,7 +123,11 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.admin',
     'south',
+    'article',
+    'markitup',
+    'tagging',
     #'registration',
     #'customuseradmin',
     # Uncomment the next line to enable the admin:
