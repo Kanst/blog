@@ -18,6 +18,8 @@ urlpatterns = patterns('',
     url(r'^markitup/', include('markitup.urls')),
     url(r'^tags/$', 'blog.views.tags'),
     url(r'^tag/(?P<tag>[-_A-Za-z0-9]+)/$','article.views.with_tag'),
+    (r'^comments/post/', 'blog.redir.post_comment'),
+    (r"^comments/", include("django.contrib.comments.urls")),
     #url(r'^tag/(?P<tag>[-_A-Za-z0-9]+)/page/(?P<token>[-\w]+)/$', 'blog.views.with_tag' ),
 )
 

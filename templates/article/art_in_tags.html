@@ -31,11 +31,11 @@
 
 {% block content %}
 <div class="span9">
-{% for art in all_art %}
-<h3><a href="/blog/{{ art.id }}-{{ art.slug|lower }}">{{ art.title }}</a></h2>
+{% for all_art in all_art %}
+<h3><a href="/blog/{{ all_art.id }}-{{ all_art.slug|lower }}">{{ all_art.title }}</a></h2>
                 <p >
 
-                    {{ art.text|truncatewords_html:100 }}
+                    {{ all_art.text|truncatewords_html:100 }}
 
                     <div class="news-footer" style="display: inline-block;
                                                     margin-top: 10px;
@@ -44,14 +44,106 @@
                                                     border-radius: 4px;
                                                     padding: 3px 15px;
                                                     font-size: .9em;">
-                    <span>Дата добавления - {{art.add_date}},</span>
+                    <span>Дата добавления - {{all_art.add_date}},</span>
                     <span class="news-comment-count">
                     </span>
-                    <a class="news-read-more " href="/blog/{{ art.id }}-{{ art.slug|lower }}">Читать полностью &rarr;</a>
+                    <a class="news-read-more " href="/blog/{{ all_art.id }}-{{ all_art.slug|lower }}">Читать полностью &rarr;</a>
                     </div>
                 <br /><br />
                 </p>           
 {% endfor %}  
+
+<div class="pagination pagination-centered">
+  <ul>
+    {% if all_art.paginator.num_pages != 1 %}
+        {% if all_art.has_previous %}
+          <li><a href="?page={{ all_art.previous_page_number }}">&larr; Пред</a></li>
+        {% else %}
+          <li class="disabled"><span>Пред</span></li>
+        {% endif %}
+
+        {% if all_art.number == 1 %}
+            <li><a href="?page=1">1</a></li>
+            <li><a href="?page=2">2</a></li>
+            {% if all_art.paginator.num_pages > 2 %}
+              <li class="disabled"><span>...</span></li>
+              <li><a href="?page={{ all_art.paginator.num_pages }}">{{ all_art.paginator.num_pages }}</a></li>
+            {% endif %}
+        {% else %}    
+              {% if all_art.number == all_art.paginator.num_pages  %}
+                  <li><a href="?page=1">1</a></li>
+                  {% if all_art.paginator.num_pages > 2 %}
+
+                    <li class="disabled"><span>...</span></li>
+                    <li><a href="?page={{ all_art.previous_page_number }}">{{ all_art.previous_page_number }}</a></li>
+                  {% endif %}
+                  <li><a href="?page={{ all_art.paginator.num_pages }}">{{ all_art.paginator.num_pages }}</a></li>
+                 
+              {% else %}
+                    {% if all_art.number == all_art.paginator.num_pages|add:"-1" %}
+                        {% if all_art.paginator.num_pages > 3 %}
+                            <li><a href="?page=1">1</a></li>
+                        {% endif %}
+                        {% if all_art.paginator.num_pages > 4 %}
+                                <li class="disabled"><span>...</span></li>
+                        {% endif %}
+                        <li><a href="?page={{ all_art.previous_page_number }}">{{ all_art.previous_page_number }}</a></li>
+                        <li class="active"><span>{{ all_art.number }}</span></li>
+                        <li><a href="?page={{ all_art.next_page_number }}">{{ all_art.next_page_number }}</a></li>
+                    {% else %}
+                        {% if all_art.number == 2 %}
+                            <li><a href="?page={{ all_art.previous_page_number }}">{{ all_art.previous_page_number }}</a></li>
+                            <li class="active"><span>{{ all_art.number }}</span></li>
+                            <li><a href="?page={{ all_art.next_page_number }}">{{ all_art.next_page_number }}</a></li>
+                            {% if all_art.paginator.num_pages > 4 %}
+                                    <li class="disabled"><span>...</span></li>
+                            {% endif %}
+                            <li><a href="?page={{ all_art.paginator.num_pages }}">{{ all_art.paginator.num_pages }}</a></li>
+                        {% else %}
+                            {% if all_art.number == 3 %}
+                                <li><a href="?page=1">1</a></li>
+                                <li><a href="?page=2">2</a></li>
+                                <li class="active"><span>{{ all_art.number }}</span></li>
+                                <li><a href="?page={{ all_art.next_page_number }}">{{ all_art.next_page_number }}</a></li>
+                                {% if all_art.paginator.num_pages > 4 %}
+                                    <li class="disabled"><span>...</span></li>
+                                {% endif %}
+                                <li><a href="?page={{ all_art.paginator.num_pages }}">{{ all_art.paginator.num_pages }}</a></li>
+                            {% else %}
+                                {% if all_art.number == all_art.paginator.num_pages|add:"-2" %}
+                                    <li><a href="?page=1">1</a></li>
+                                    <li class="disabled"><span>...</span></li>
+                                    <li><a href="?page={{ all_art.previous_page_number }}">{{ all_art.previous_page_number }}</a></li>
+                                    <li class="active"><span>{{ all_art.number }}</span></li>
+                                    <li><a href="?page={{ all_art.next_page_number }}">{{ all_art.next_page_number }}</a></li>
+                                    <li><a href="?page={{ all_art.paginator.num_pages }}">{{ all_art.paginator.num_pages }}</a></li>
+                                {% else %}
+                                    <li><a href="?page=1">1</a></li>
+                                    <li class="disabled"><span>...</span></li>
+                                    <li><a href="?page={{ all_art.previous_page_number }}">{{ all_art.previous_page_number }}</a></li>
+                                    <li class="active"><span>{{ all_art.number }}</span></li>
+                                    <li><a href="?page={{ all_art.next_page_number }}">{{ all_art.next_page_number }}</a></li>
+                                    <li class="disabled"><span>...</span></li>
+                                    <li><a href="?page={{ all_art.paginator.num_pages }}">{{ all_art.paginator.num_pages }}</a></li>    
+                                {% endif %}
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+              {% endif %} 
+
+            
+        {% endif %}
+
+
+    {% if all_art.has_next %}
+      <li><a href="?page={{ all_art.next_page_number }}">След &rarr;</a></li>
+    {% else %}
+      <li class="disabled"><span>След</span></li>
+    {% endif %}
+     {% endif %} 
+
+  </ul>
+</div> 
 </div><!--/span-->
 {% endblock %}
 

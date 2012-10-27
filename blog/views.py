@@ -6,12 +6,27 @@ from article.models import Article
 import django.shortcuts as shortcuts 
 from django.views.generic import list_detail
 from tagging.models import Tag, TaggedItem
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
+
+
+def pagination_sokr(request,page):
+    books_list = request
+    paginator = Paginator(books_list, 5)
+    try:
+        request = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        request = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        request = paginator.page(paginator.num_pages)
+    return request
 
 def home(request):
     hello = 'Hello world!!'
     
-    all_art = Article.objects.all().order_by("-add_date")
+    all_art = pagination_sokr(Article.objects.all().order_by("-add_date"), request.GET.get('page'))
     title = ""
     return list_detail.object_list(
             request,

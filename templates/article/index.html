@@ -51,7 +51,31 @@
                     </span>
                     </div>
                 <br /><br />
-                </p>                
+                </p>     
+
+
+{% load comments %}
+
+
+{% get_comment_count for art as comment_count %}
+<h5>Комментарии ({{ comment_count }}):</h5>
+<br />
+{% get_comment_list for art as comment_list %}
+
+{% for comment in comment_list %}
+
+<br>
+<blockquote>
+  <p>{{ comment.comment|escape }}</p>
+  <small><h5><a href={{ comment.user_url }}>{{ comment.user_name|escape }}</a><cite title="">  {{ comment.submit_date }}</cite></h5></small>
+</blockquote>
+
+
+<br/>
+{% endfor %}
+<hr/>
+Написать комментарий:
+{% render_comment_form for art %}
 </div><!--/span-->
 {% endblock %}
 

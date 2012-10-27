@@ -6,6 +6,8 @@ from markitup.fields import MarkupField
 # Create your models here.
 from tagging.fields import TagField
 from tagging.models import Tag
+from django.contrib import admin
+
 class Article(models.Model):
     title = models.CharField('название', max_length=100)
     slug = models.SlugField()
@@ -21,6 +23,12 @@ class Article(models.Model):
 
     def get_tags(self):
         return Tag.objects.get_for_object(self) 
+
+
+class BlogPostAdmin(admin.ModelAdmin):   
+    list_display = ("id", "title", "add_date")
+
+admin.site.register(Article, BlogPostAdmin)
 
 
 def makeExtension(configs=None):
