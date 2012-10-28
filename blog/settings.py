@@ -144,6 +144,7 @@ INSTALLED_APPS = (
     'article',
     'markitup',
     'tagging',
+    'registration',
     #'registration',
     #'customuseradmin',
     # Uncomment the next line to enable the admin:
@@ -152,7 +153,24 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
 )
 
+ACCOUNT_ACTIVATION_DAYS = 3
 
+# AUTH_USER_EMAIL_UNIQUE = True
+# EMAIL_HOST = 'smtp.mail.ru'
+# EMAIL_PORT = 0
+# EMAIL_HOST_USER = 'ae_jeka@mail.ru'
+# EMAIL_HOST_PASSWORD = 'kanst19931706'
+# EMAIL_USE_TLS = False
+# DEFAULT_FROM_EMAIL = 'ae_jeka@mail.ru'
+AUTH_USER_EMAIL_UNIQUE = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'root@kanst9.com'
+EMAIL_HOST_PASSWORD = 'kanst19931706KANST'
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'root@kanst9.com'
+
+LOGIN_REDIRECT_URL = "/"
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
 # the site admins on every HTTP 500 error when DEBUG=False.

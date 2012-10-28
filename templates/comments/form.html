@@ -1,15 +1,20 @@
 {% load comments i18n %}
-<form action="{% comment_form_target %}" method="post">{% csrf_token %}
+<form action="{% comment_form_target %}" method="post" class="well form-inline">{% csrf_token %}
   {% if next %}<div><input type="hidden" name="next" value="{{ next }}" /></div>{% endif %}
   {% for field in form %}
     {% if field.is_hidden %}
       <div>{{ field }}</div>
     {% else %}
-      {% if field.errors %}{{ field.errors }}{% endif %}
+      <div class="alert">
+      {% if field.errors %}
+        <button class="close" data-dismiss="alert">×</button>
+        <strong>Предупреждение!</strong>{{ field.errors }}
+      {% endif %}
+      </div>
       <p
         {% if field.errors %} class="error"{% endif %}
         {% ifequal field.name "honeypot" %} style="display:none;"{% endifequal %}>
-        {{ field.label_tag }}{{ field }}
+        {{ field.label_tag }}: {{ field }}
       </p>
     {% endif %}
   {% endfor %}

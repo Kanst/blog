@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.conf.urls.defaults import *
 from django.conf import settings
-# Uncomment the next two lines to enable the admin:
+from registration.forms import RegistrationFormUniqueEmail
 from django.contrib import admin
 admin.autodiscover()
 
@@ -20,6 +20,8 @@ urlpatterns = patterns('',
     url(r'^tag/(?P<tag>[-_A-Za-z0-9]+)/$','article.views.with_tag'),
     (r'^comments/post/', 'blog.redir.post_comment'),
     (r"^comments/", include("django.contrib.comments.urls")),
+    url(r'^register/$', 'registration.views.register', {'form': RegistrationFormUniqueEmail}, name='registration_register'),
+    (r'^accounts/', include('registration.urls')),
     #url(r'^tag/(?P<tag>[-_A-Za-z0-9]+)/page/(?P<token>[-\w]+)/$', 'blog.views.with_tag' ),
 )
 

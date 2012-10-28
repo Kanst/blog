@@ -1,42 +1,33 @@
 {% extends "base.html" %}
 {% block content %}
+<div class="span9">
 <h1>Регистрация</h1>
-<form method="post" action="">{% csrf_token %}
-<dl class="register">
+<form method="post" action="" class="well form-inline">{% csrf_token %}
+<dl class="control-group">
 {% for field in form %}
     <dt>{{ field.label_tag }}</dt>
-    <dd class="clearfix">{{ field }}
+    <dd class="control-label">{{ field }}
     {% if field.help_text %}<div class="clearfix">{{ field.help_text }}</div>{% endif %}
-    {% if field.errors %}<div class="myerrors clearfix">{{ field.errors }}</div>{% endif %}
+    
+    <div class="alert">
+      {% if field.errors %}
+        <button class="close" data-dismiss="alert">×</button>
+        <strong>Предупреждение!</strong>{{ field.errors }}
+      {% endif %}
+    </div>
     </dd>
 {% endfor %}
 </dl>
-<input type="submit" value="Зарегистрироваться" / class="clearfix">
+<input type="submit" value="Зарегистрироваться" / class="btn btn-primary">
 </form>
+</div>
 {% endblock %}
 
-{% block auth %}
-{% if user.is_authenticated %}
-  <ul class="nav pull-right">
-  <li class="dropdown">
-    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Привет, {{ user.username }}</a>
-        <ul class="dropdown-menu">
-          <li><a data-toggle="modal" href="/accounts/logout/">Выйти</a></li>
-         <!--  <li><a data-toggle="modal" href="/accounts/register/">Регистрация</a></li> -->
-        </ul>
-    </li>
-  </ul>
-{% else %}
-  <ul class="nav pull-right">
-  <li class="dropdown">
-    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Привет,  гость</a>
-        <ul class="dropdown-menu">
-          <li><a data-toggle="modal" href="/accounts/login/">Войти</a></li>
-          <li><a data-toggle="modal" href="/accounts/register/">Регистрация</a></li>
-        </ul>
-    </li>
-  </ul>
-{% endif %}
-
-
+{% block rigth %}
+<div class="span3">
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              Меню
+            </ul>
+  </div><!--/.well -->
 {% endblock %}

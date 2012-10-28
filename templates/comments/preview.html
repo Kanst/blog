@@ -4,8 +4,9 @@
 {% block title %}{% trans "Preview your comment" %}{% endblock %}
 
 {% block content %}
+<div class="span9">
   {% load comments %}
-  <form action="{% comment_form_target %}" method="post">{% csrf_token %}
+  <form action="{% comment_form_target %}" method="post" class="well form-inline">{% csrf_token %}
     {% if next %}<div><input type="hidden" name="next" value="{{ next }}" /></div>{% endif %}
     {% if form.errors %}
     <h1>{% blocktrans count counter=form.errors|length %}Please correct the error below{% plural %}Please correct the errors below{% endblocktrans %}</h1>
@@ -20,7 +21,12 @@
       {% if field.is_hidden %}
         <div>{{ field }}</div>
       {% else %}
-        {% if field.errors %}{{ field.errors }}{% endif %}
+        <div class="alert">
+        {% if field.errors %}
+          <button class="close" data-dismiss="alert">×</button>
+          <strong>Предупреждение!</strong>{{ field.errors }}
+        {% endif %}
+        </div>
         <p
           {% if field.errors %} class="error"{% endif %}
           {% ifequal field.name "honeypot" %} style="display:none;"{% endifequal %}>
@@ -34,4 +40,15 @@
     <input type="submit" name="preview" class="submit-preview" value="{% trans "Preview" %}" />
     </p>
   </form>
+</div>
+{% endblock %}
+
+
+{% block rigth %}
+<div class="span3">
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              Меню
+            </ul>
+  </div><!--/.well -->
 {% endblock %}
